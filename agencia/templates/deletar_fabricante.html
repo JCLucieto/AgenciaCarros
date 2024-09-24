@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+    <div class="row">
+      <h1 style="text-align:left; margin-bottom: 30px;">Deletar Fabricante</h1>
+    </div>
+    <div class="row">
+      {% if messages %}
+        {% for message in messages %}
+          <h3>{{ message }}</h3>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% if messages %}
+        <div class="buttons-container">
+          <a href="{% url 'consultar_fabricantes' %}" class="botao cinza">Retornar</a>
+        </div>
+    {% else %}
+      <div class="row">
+        <p style="margin-bottom: 20px;">Tem certeza que deseja deletar o fabricante :</p>
+      </div>
+      <div class="row">
+        <p style="font-size:24px;"><strong>{{ object.nome }}</strong></p>
+      </div>
+      <div class="row">
+        <div class="buttons-container">
+          <button type="submit" class="botao vermelho">Deletar</button>
+          <a href="{% url 'consultar_fabricantes' %}" class="botao cinza">Cancelar</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</form>
+
+{% endblock %}

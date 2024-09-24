@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="car-card1">
+    <h1>Detalhes do Fabricante</h1>
+      <h2>{{ object.fabricante }}</h2>
+      <p><strong>Código :</strong> {{ object.id }}</p>
+      <p><strong>Nome :</strong> {{ object.nome }}</p>
+  </div>
+
+  {% if user.is_authenticated %}
+    <div class="buttons-container">
+      <a href="{% url 'alterar_fabricante' pk=object.pk %}" class="botao verde">Editar</a>
+      <a href="{% url 'deletar_fabricante' pk=object.pk %}" class="botao vermelho">Deletar</a>
+      <a href="{% url 'consultar_fabricantes' %}" class="botao cinza">Retornar</a>
+    </div>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'consultar_carros' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="centralizado">
+        <input class = 'pesquisa' name="buscar" placeholder="O que você procura?">
+        <button type="submit" class='botao-pesquisar'>Pesquisar</button>     
+    </div>
+ </form>
+
+<div class="car-grid">
+    {% if carros %}
+    {% for carro in carros %}
+        <a href="{% url 'detalhes_carro' carro.pk %}">
+            <div class="car-card">
+            <img src="{{ carro.foto.url }}" alt="{{ carro.model }} - {{ carro.fabricante }}">
+            <h2>{{ carro.fabricante }} {{ carro.modelo }}</h2>
+            {% load format_filters %}
+            <p>Ano: {{ carro.ano }}   -   Preço: {{ carro.preco|format_preco }} </p>            
+            </div>
+        </a>
+    {% endfor %}
+    {% else %}
+    <p class="no-results">Nenhum Carro Encontrado.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+

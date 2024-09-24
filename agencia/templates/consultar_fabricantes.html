@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'consultar_fabricantes' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="centralizado">
+        <input class = 'pesquisa' name="buscar" placeholder="O que você procura?">
+        <button type="submit" class='botao-pesquisar'>Pesquisar</button>     
+    </div>
+ </form>
+
+<div class="car-grid">
+    {% if fabricantes %}
+    {% for fabricante in fabricantes %}
+        <a href="{% url 'detalhes_fabricante' fabricante.pk %}">
+            <div class="car-card">
+                <p>{{ fabricante.nome }} </p>            
+            </div>
+        </a>
+    {% endfor %}
+    {% else %}
+    <p class="no-results">Nenhum Fabricante Encontrado.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

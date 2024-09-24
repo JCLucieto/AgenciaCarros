@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="{% url 'cadastrar_carro' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <h1 style="text-align:left; margin-bottom: 40px;">Cadastrar Novo Carro</h1>
+        {% if carroform.non_field_errors %}
+            <div class="form-errors">
+                {% for error in carroform.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% for field in carroform.visible_fields %}
+            <div class="col-12" style="margin-bottom: 20px;">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-errors">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="buttons-container">
+            <button type="submit" class="botao verde">Cadastrar</button>
+            <a href="{% url 'consultar_carros' %}" class="botao cinza">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

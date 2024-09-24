@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="{% url 'cadastrar_usuario' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <h1 style="text-align:left; margin-bottom: 40px;">Cadastro de Usuário</h1>        
+        {% if usuarioform.non_field_errors %}
+            <div class="form-errors">
+                {% for error in usuarioform.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% for field in usuarioform.visible_fields %}
+            {% if field.label != 'Autenticação baseada em senha' %}
+                <div class="col-12" style="margin-bottom: 20px;">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="form-errors">
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                         </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        <button class="botao verde" type="submit">Cadastrar</button>
+    </div>
+
+</form>
+ 
+{% endblock %}
